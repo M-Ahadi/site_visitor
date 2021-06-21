@@ -11,3 +11,8 @@ USE_PROXY=True # use proxy to visit website from different countries
 LOG_LEVEL=info # display log, options: debug,info, warning, error, critical
 PARALLELS=3 # number of parallel website visit
 ```
+
+
+To run the code in windows download chromedriver for windows from url blow:
+
+https://chromedriver.chromium.org/downloads
