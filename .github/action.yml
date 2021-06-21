@@ -11,14 +11,13 @@ jobs:
       packages: write
       contents: read
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
       - name: Log in to GitHub Docker Registry
         uses: docker/login-action@v1
         with:
-          registry: docker.pkg.github.com
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          githubOrg: override-org
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
