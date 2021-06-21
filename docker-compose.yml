@@ -2,8 +2,7 @@ version: "3"
 
 services:
   site_visitor:
-    build:
-      context: .
+    image: docker.pkg.github.com/m-ahadi/site_visitor/site_visitor:latest
     restart: always
     container_name: site_visitor
     environment:
