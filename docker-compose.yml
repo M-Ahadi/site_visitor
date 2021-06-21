@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  site_visitor:
+    build:
+      context: .
+    restart: always
+    container_name: site_visitor
+    environment:
+      - SITE_VISIT_PERIOD=1 #in seconds
+      - URL=https://botfun.ir
+      - USE_PROXY=True
+      - LOG_LEVEL=info
+      - PARALLELS=3
