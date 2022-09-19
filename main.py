@@ -7,6 +7,7 @@ import sys
 import requests
 import asyncio
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 import configs
 
 logging.basicConfig(level=configs.LOG_LEVEL)
@@ -22,8 +23,8 @@ proxy_list = []
 
 
 def get_proxies():
-    proxies = requests.get("https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list.txt")
-    proxies = proxies.text.split("\n")[9:]
+    proxies = requests.get("https://raw.githubusercontent.com/hookzof/socks5_list/master/proxy.txt")
+    proxies = proxies.text.split("\n")
     proxies = [p.split(" ")[0] for p in proxies]
     return proxies
 
@@ -51,7 +52,7 @@ def visit_site(web_url, parallel_state, driver=None):
     try:
         if driver:
             driver.close()
-        driver = webdriver.Chrome(executable_path=os.path.join(configs.BASE_DIR,"chromedriver"), options=config_chrome())
+        driver = webdriver.Chrome(service=Service(os.path.join(configs.BASE_DIR,"chromedriver")), options=config_chrome())
         driver.get(web_url)
     except Exception as e:
         logger.error(e)

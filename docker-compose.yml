@@ -8,7 +8,7 @@ services:
     container_name: site_visitor
     environment:
       - SITE_VISIT_PERIOD=1 #in seconds
-      - URL=https://botfun.ir
+      - URL=https://blog.m-ahadi.ir
       - USE_PROXY=True
       - LOG_LEVEL=info
       - PARALLELS=3
