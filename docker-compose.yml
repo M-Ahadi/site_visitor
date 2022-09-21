@@ -8,7 +8,9 @@ services:
     container_name: site_visitor
     environment:
       - SITE_VISIT_PERIOD=1 #in seconds
-      - URL=https://blog.m-ahadi.ir
+      - URLS=https://blog.m-ahadi.ir,https://m-ahadi.ir
       - USE_PROXY=True
       - LOG_LEVEL=info
-      - PARALLELS=3
+      - PARALLELS=10
+      - MINIMUM_VISIT=60  #in second
+      - MAXIMUM_VISIT=100  #in second

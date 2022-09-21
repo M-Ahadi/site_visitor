@@ -34,5 +34,4 @@ RUN chmod +x chromedriver
 COPY . .
 
 
-
 CMD ["python", "main.py"]

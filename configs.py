@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 PERIOD = int(os.getenv("SITE_VISIT_PERIOD", 1))
-URL = os.getenv("URL")
+URLS = os.getenv("URLS").split(",")
 USE_PROXY = os.getenv("USE_PROXY", "true").lower() == "true"
 
 LOG_LEVEL = os.getenv("LOG_LEVEL",'info').upper()
