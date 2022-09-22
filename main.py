@@ -61,13 +61,13 @@ def get_proxies():
                     match = re.findall(r'[0-9]+(?:\.[0-9]+){3}:[0-9]+', response.text)
                     proxies += match
             except Exception as e:
-                logger.warning(e)
+                logger.error(e)
         proxies = list(set(proxies))
         random.shuffle(proxies)
         logger.info("{} proxy is found".format(len(proxies)))
         return proxies
     except Exception as e:
-        logger.warning(e)
+        logger.error(e)
 
 
 def config_chrome():
@@ -124,6 +124,8 @@ def update_available_proxies(proxy_list_to_check, proxy_index, count_need=-1):
 
 
 if __name__ == "__main__":
+    proxy_index = 0
+    available_proxies = []
     loop = asyncio.get_event_loop()
     if not configs.URLS:
         logger.error("website url is not given.\nVariable URL should be configured")
@@ -132,17 +134,18 @@ if __name__ == "__main__":
     if configs.USE_PROXY:
         logger.info("Proxy is enabled.")
         proxy_list = get_proxies()
+        logger.info(f"checking available proxies")
+        proxy_index = update_available_proxies(proxy_list, 0, count_need=configs.PARALLELS)
+
         if not proxy_list:
             logger.warning("no proxy found!!!")
             exit(-1)
     else:
         logger.info("Proxy is disabled.")
-    logger.info(f"checking available proxies")
-    available_proxies = []
-    proxy_index = update_available_proxies(proxy_list, 0, count_need=configs.PARALLELS)
+
     for parallel in range(configs.PARALLELS):
         loop.call_soon(visit_site, configs.URLS, parallel + 1)
 
-    loop.call_soon(update_available_proxies, proxy_list, proxy_index)
-
+    if configs.USE_PROXY:
+        loop.call_soon(update_available_proxies, proxy_list, proxy_index)
     loop.run_forever()
